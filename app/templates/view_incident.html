@@ -1,13 +1,28 @@
-<h2>{{ incident.title }}</h2>
-<p>{{ incident.description }}</p>
-<form method="POST">
-  <label>Status</label>
-  <select name="status">
-    <option>Open</option>
-    <option>In Progress</option>
-    <option>Resolved</option>
-  </select><br>
-  <label>Assign to</label>
-  <input name="assigned_to" value="{{ incident.assigned_to }}"><br>
-  <button type="submit">Update</button>
-</form>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Incident</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>{{ incident.title }}</h2>
+        <p><strong>Description:</strong> {{ incident.description }}</p>
+        <form method="POST">
+            <label>Status</label>
+            <select name="status">
+                <option {% if incident.status == 'Open' %}selected{% endif %}>Open</option>
+                <option {% if incident.status == 'In Progress' %}selected{% endif %}>In Progress</option>
+                <option {% if incident.status == 'Resolved' %}selected{% endif %}>Resolved</option>
+            </select>
+
+            <label>Assign to</label>
+            <input name="assigned_to" value="{{ incident.assigned_to }}">
+
+            <button type="submit">Update</button>
+        </form>
+        <br>
+        <a href="{{ url_for('routes.dashboard') }}">← Back to Dashboard</a>
+    </div>
+</body>
+</html>
