@@ -1,0 +1,13 @@
+<h2>{{ incident.title }}</h2>
+<p>{{ incident.description }}</p>
+<form method="POST">
+  <label>Status</label>
+  <select name="status">
+    <option>Open</option>
+    <option>In Progress</option>
+    <option>Resolved</option>
+  </select><br>
+  <label>Assign to</label>
+  <input name="assigned_to" value="{{ incident.assigned_to }}"><br>
+  <button type="submit">Update</button>
+</form>
