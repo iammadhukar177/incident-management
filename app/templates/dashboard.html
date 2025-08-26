@@ -1,7 +1,37 @@
-<h2>Incidents</h2>
-<a href="{{ url_for('routes.create_incident') }}">+ New Incident</a>
-<ul>
-  {% for i in incidents %}
-    <li><a href="{{ url_for('routes.view_incident', id=i.id) }}">{{ i.title }}</a> - {{ i.status }}</li>
-  {% endfor %}
-</ul>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard - Incident Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Incident Dashboard</h2>
+        <a href="{{ url_for('routes.create_incident') }}">+ Create New Incident</a> |
+        <a href="{{ url_for('auth.logout') }}">Logout</a>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Status</th>
+                    <th>Assigned To</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in incidents %}
+                <tr>
+                    <td>{{ i.title }}</td>
+                    <td>
+                        <span class="status-{{ i.status.lower().replace(' ', '-') }}">{{ i.status }}</span>
+                    </td>
+                    <td>{{ i.assigned_to or "N/A" }}</td>
+                    <td><a href="{{ url_for('routes.view_incident', id=i.id) }}">View</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
